@@ -36,21 +36,24 @@ public class LivreFacadeREST extends AbstractFacade<Livre> {
     @POST
     @Override
     @Consumes({"application/xml", "application/json"})
-    public void create(Livre entity) {
+    public Livre create(Livre entity) {
         super.create(entity);
+         return entity;
     }
 
     @PUT
     @Path("{id}")
     @Consumes({"application/xml", "application/json"})
-    public void edit(@PathParam("id") Long id, Livre entity) {
+    public Livre edit(@PathParam("id") Long id, Livre entity) {
         super.edit(entity);
+        return entity;
     }
 
     @DELETE
     @Path("{id}")
-    public void remove(@PathParam("id") Long id) {
+    public Long remove(@PathParam("id") Long id) {
         super.remove(super.find(id));
+        return id;
     }
 
     @GET

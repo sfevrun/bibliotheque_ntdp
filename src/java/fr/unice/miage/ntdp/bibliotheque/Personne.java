@@ -4,6 +4,9 @@
  */
 package fr.unice.miage.ntdp.bibliotheque;
 
+
+
+import java.awt.image.BufferedImage;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Entity;
@@ -12,6 +15,19 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Temporal;
 import javax.xml.bind.annotation.XmlRootElement;
+
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import javax.imageio.ImageIO;
+import sun.misc.BASE64Decoder;
+import sun.misc.BASE64Encoder;
+
+
+
 
 /**
  *
@@ -112,5 +128,94 @@ public class Personne implements Serializable {
     public void setDateDenaissance(Date dateDenaissance) {
         this.dateDenaissance = dateDenaissance;
     }
+   public String saveImage(String img){
+      //   BufferedImage image=null;
+     // image=decodeToImage(this.photo);
+     try (FileOutputStream imageOutFile = new FileOutputStream("/home/saul/Desktop/VBA/"+this.id+".jpeg")) {
+		 byte[] imageByte;
+                BASE64Decoder decoder = new BASE64Decoder();
+                imageByte = decoder.decodeBuffer(img);
+			imageOutFile.write(imageByte);
+		} catch (FileNotFoundException e) {
+			System.out.println("Image not found" + e);
+		} catch (IOException ioe) {
+			System.out.println("Exception while reading the Image " + ioe);
+		}
+          
     
+                 System.out.println("Done");
+                 return "antre";
+             }
+   
+  
+    
+
+  public static String findImage(String pathimg){
+      String imageString="";
+      BufferedImage image = null;
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+        try {
+               image = ImageIO.read(new File("/home/saul/Desktop/VBA/"+pathimg+".jpeg"));
+                ImageIO.write(image, "", bos);
+            byte[] imageBytes = bos.toByteArray();
+             BASE64Encoder encoder = new BASE64Encoder();
+            imageString = encoder.encode(imageBytes);
+             bos.close();
+            } catch (IOException e) {
+            }
+
+                 System.out.println("Done");
+                 return imageString;
+             }
+   
+  
+    public static String encodeToString(BufferedImage image, String type) {
+        String imageString = null;
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+ 
+        try {
+            ImageIO.write(image, type, bos);
+            byte[] imageBytes = bos.toByteArray();
+             BASE64Encoder encoder = new BASE64Encoder();
+            imageString = encoder.encode(imageBytes);
+             bos.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return imageString;
+    }
+    
+    public static BufferedImage decodeToImage(String imageString) {
+ 
+        BufferedImage image = null;
+        byte[] imageByte;
+        try {
+            BASE64Decoder decoder = new BASE64Decoder();
+            imageByte = decoder.decodeBuffer(imageString);
+            ByteArrayInputStream bis = new ByteArrayInputStream(imageByte);
+            image = ImageIO.read(bis);
+            bis.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return image;
+    }
 }
+/*  try {
+                BufferedImage image = null;
+                byte[] imageByte;
+                BASE64Decoder decoder = new BASE64Decoder();
+                imageByte = decoder.decodeBuffer(img);
+                ByteArrayInputStream bis = new ByteArrayInputStream(imageByte);
+                image = ImageIO.read(bis);
+                bis.close();
+
+                // write the image to a file
+                File outputfile = new File("/home/saul/Desktop/VBA/"+this.id+".png");
+                ImageIO.write(image, "png", outputfile);
+  
+		} catch (IOException ioe) {
+			System.out.println("Exception while reading the Image " + ioe);
+		}
+                return "";
+   }*/

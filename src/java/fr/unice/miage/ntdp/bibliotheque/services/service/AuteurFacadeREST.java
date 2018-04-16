@@ -36,21 +36,24 @@ public class AuteurFacadeREST extends AbstractFacade<Auteur> {
     @POST
     @Override
     @Consumes({"application/xml", "application/json"})
-    public void create(Auteur entity) {
+    public Auteur create(Auteur entity) {
         super.create(entity);
+         return entity;
     }
 
     @PUT
     @Path("{id}")
     @Consumes({"application/xml", "application/json"})
-    public void edit(@PathParam("id") Long id, Auteur entity) {
+    public Auteur edit(@PathParam("id") Long id, Auteur entity) {
         super.edit(entity);
+        return entity;
     }
 
     @DELETE
     @Path("{id}")
-    public void remove(@PathParam("id") Long id) {
+    public Long remove(@PathParam("id") Long id) {
         super.remove(super.find(id));
+        return id;
     }
 
     @GET

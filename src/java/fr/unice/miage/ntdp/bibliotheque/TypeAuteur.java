@@ -4,16 +4,17 @@
  */
 package fr.unice.miage.ntdp.bibliotheque;
 
+import java.io.Serializable;
+
 /**
  *
  * @author edou
  */
-public enum TypeAuteur {
-    PRINCIPAL(0), 
-    COAUTEUR (1);
-     TypeAuteur(int val){
-        this.val = val;
+public enum TypeAuteur implements Serializable{
+    PRINCIPAL, 
+    COAUTEUR ;
+   
+    public String getType(){
+        return this.name();
     }
-     int val; 
-    
 }

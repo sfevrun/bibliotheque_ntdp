@@ -7,6 +7,8 @@ package fr.unice.miage.ntdp.bibliotheque;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -29,6 +31,8 @@ public class Auteur extends Personne implements Serializable {
     private Long id;
     private String aProposDe; 
     private String nationalite; 
+    @Enumerated(EnumType.STRING)
+    
     private TypeAuteur type; 
     
     @Override

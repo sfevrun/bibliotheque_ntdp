@@ -36,21 +36,24 @@ public class PersonneFacadeREST extends AbstractFacade<Personne> {
     @POST
     @Override
     @Consumes({"application/xml", "application/json"})
-    public void create(Personne entity) {
+    public Personne create(Personne entity) {
         super.create(entity);
+         return entity;
     }
 
     @PUT
     @Path("{id}")
     @Consumes({"application/xml", "application/json"})
-    public void edit(@PathParam("id") Long id, Personne entity) {
+    public Personne edit(@PathParam("id") Long id, Personne entity) {
         super.edit(entity);
+        return entity;
     }
 
     @DELETE
     @Path("{id}")
-    public void remove(@PathParam("id") Long id) {
+    public Long remove(@PathParam("id") Long id) {
         super.remove(super.find(id));
+        return id;
     }
 
     @GET

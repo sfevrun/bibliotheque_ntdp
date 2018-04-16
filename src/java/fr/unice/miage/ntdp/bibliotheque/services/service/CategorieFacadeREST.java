@@ -36,21 +36,24 @@ public class CategorieFacadeREST extends AbstractFacade<Categorie> {
     @POST
     @Override
     @Consumes({"application/xml", "application/json"})
-    public void create(Categorie entity) {
+    public Categorie create(Categorie entity) {
         super.create(entity);
+        return entity;
     }
 
     @PUT
     @Path("{id}")
     @Consumes({"application/xml", "application/json"})
-    public void edit(@PathParam("id") Long id, Categorie entity) {
+    public Categorie edit(@PathParam("id") Long id, Categorie entity) {
         super.edit(entity);
+        return entity;
     }
 
     @DELETE
     @Path("DELETE/{id}")
-    public void remove(@PathParam("id") Long id) {
+    public Long remove(@PathParam("id") Long id) {
         super.remove(super.find(id));
+        return id;
     }
 
     @GET
